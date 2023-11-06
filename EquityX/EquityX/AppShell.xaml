@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="EquityX.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:EquityX.View"
+    xmlns:local="clr-namespace:EquityX"
+    Shell.FlyoutBehavior="Flyout">
+
+    
+    <!--Flyout headers-->
+    <Shell.FlyoutHeader>
+        <Grid RowDefinitions="*"
+             ColumnDefinitions="*,*,*"
+             HeightRequest="100">
+            <Image Source="user.png"
+                  HeightRequest="50"
+                  Grid.Column="0"/>
+            <Label Text="John Devaney"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="2"
+                  FontSize="26"
+                  HorizontalOptions="Start"
+                  VerticalOptions="Center"/>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <!--<TabBar >
+        <Tab Title="Help"
+         Icon="help.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:HelpPage}"/>
+        </Tab>
+
+
+        <Tab Title="Settings"
+         Icon="help.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:SecurityPage}"/>
+        </Tab>
+    </TabBar>-->
+    <!--Bottom tabbars for bottom-->
+    <FlyoutItem
+        Title="Account"
+        Icon="user.png">
+
+        <ShellContent
+           Title="Main Page"
+           Icon="home.png"
+           ContentTemplate="{DataTemplate pages:HomePage}">
+
+        </ShellContent>
+
+        <ShellContent
+            Title="Market"
+            Icon="graph.png"
+            ContentTemplate="{DataTemplate local:MainPage}">
+
+        </ShellContent>
+
+        <ShellContent
+            Title="Portfolio"
+            Icon="portfolio.png"
+            ContentTemplate="{DataTemplate pages:StatisticsPage}">
+
+        </ShellContent>
+
+        <ShellContent
+            Title="Hub"
+            Icon="application.png"
+            ContentTemplate="{DataTemplate pages:HubPage}">
+
+        </ShellContent>
+
+    </FlyoutItem>
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+
+    <!--Flyout items for flyout page-->
+    <FlyoutItem
+       Title="Account"
+       Icon="user.png">
+
+        <ShellContent
+           Title="Account"
+           Icon="user.png"
+           ContentTemplate="{DataTemplate pages:AccountPage}">
+
+        </ShellContent>
+
+    </FlyoutItem>
+
+    <FlyoutItem
+       Title="Security"
+       Icon="security.png">
+
+        <ShellContent
+       Title="Security"
+       Icon="security.png"
+       ContentTemplate="{DataTemplate pages:SecurityPage}">
+
+        </ShellContent>
+
+    </FlyoutItem>
+
+    
+
+    <FlyoutItem
+   Title="Help"
+   Icon="help.png">
+
+        <ShellContent
+       Title="Help"
+       Icon="help.png"
+       ContentTemplate="{DataTemplate pages:HelpPage}">
+
+        </ShellContent>
+    </FlyoutItem>
+
+    
+
+    <!--Displays a gradient when flyout is clicked-->
+    <Shell.FlyoutBackdrop>
+        <LinearGradientBrush StartPoint="0,0"
+                            EndPoint="0,1">
+            <GradientStop Color="#000000" Offset="0.1"/>
+            <GradientStop Color="#080012" Offset="0.3"/>
+            <GradientStop Color="#0f001d" Offset="0.6"/>
+            <GradientStop Color="#120027" Offset="0.8"/>
+            <GradientStop Color="#120132" Offset="1.1"/>
+            <GradientStop Color="#090149" Offset="1.4"/>
+            <GradientStop Color="#000055" Offset="1.6"/>
+        </LinearGradientBrush>
+    </Shell.FlyoutBackdrop>
+
+    
+
+
+
+
+</Shell>

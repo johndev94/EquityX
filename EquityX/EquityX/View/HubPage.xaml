@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EquityX.View.HubPage"
+             Title="Hub" 
+             BackgroundColor="White">
+    <Grid
+        RowDefinitions="*,*,*"
+        ColumnDefinitions="*,*,*">
+        <BoxView  
+          
+                 Grid.Row="0" 
+                 Grid.Column="0" 
+                 Grid.ColumnSpan="3" 
+                 Margin="5,10,5,0">
+            
+            <BoxView.Background CornerRadius="20,20,20,20">
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#421865"
+                      Offset="0.1" />
+                    <GradientStop Color="#425865"
+                      Offset="0.8" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+
+        <BoxView CornerRadius="20,20,20,20" 
+                 Color="#425869" 
+                 Grid.Row="1" 
+                 Grid.Column="0" 
+                 Grid.ColumnSpan="1" 
+                 Margin="5,10,5,0"/>
+
+        <BoxView CornerRadius="20,20,20,20" 
+                 Color="#425869" 
+                 Grid.Row="1" 
+                 Grid.Column="1" 
+                 Grid.ColumnSpan="1" 
+                 Margin="5,10,5,0"/>
+        <BoxView CornerRadius="20,20,20,20" 
+                 Color="#425869" 
+                 Grid.Row="1" 
+                 Grid.Column="2" 
+                 Grid.ColumnSpan="1" 
+                 Margin="5,10,5,0"/>
+        
+        
+        <BoxView CornerRadius="20,20,20,20" 
+                 Color="#425869" 
+                 Grid.Row="2" 
+                 Grid.Column="0" 
+                 Grid.ColumnSpan="1" 
+                 Margin="5,10,5,0"/>
+
+        <BoxView CornerRadius="20,20,20,20" 
+                 Color="#425869" 
+                 Grid.Row="2" 
+                 Grid.Column="1" 
+                 Grid.ColumnSpan="1" 
+                 Margin="5,10,5,0"/>
+        <BoxView CornerRadius="20,20,20,20" 
+                 Color="#425869" 
+                 Grid.Row="2" 
+                 Grid.Column="2" 
+                 Grid.ColumnSpan="1" 
+                 Margin="5,10,5,0"/>
+    </Grid>
+</ContentPage>
