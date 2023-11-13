@@ -38,7 +38,11 @@
         </Tab>
     </TabBar>-->
     <!--Bottom tabbars for bottom-->
-    <FlyoutItem
+    <!-- This isn't the tabs, hence the confusion. A FlyoutItem is an item on a flyout. For each 
+    item you can define one or more ShellContents. If you define more than one shell content items 
+    they are automatically rendered as tabs at the bottom of the page. -->
+    <!-- First flyout menu item - Account-->
+    <FlyoutItem       
         Title="Account"
         Icon="user.png">
 
@@ -72,10 +76,50 @@
 
     </FlyoutItem>
 
+    <!-- Second flyout menu item - Home-->
+    
+    <FlyoutItem
+        Title="Home - test"
+        Icon="home.png">
+
+        <ShellContent
+           Title="Main Page"
+           Icon="home.png"
+           ContentTemplate="{DataTemplate pages:HomePage}">
+
+        </ShellContent>
+
+        <ShellContent
+            Title="Market"
+            Icon="graph.png"
+            ContentTemplate="{DataTemplate local:MainPage}">
+
+        </ShellContent>
+
+        <ShellContent
+            Title="Portfolio"
+            Icon="portfolio.png"
+            ContentTemplate="{DataTemplate pages:StatisticsPage}">
+
+        </ShellContent>
+
+        <ShellContent
+            Title="Hub"
+            Icon="application.png"
+            ContentTemplate="{DataTemplate pages:HubPage}">
+
+        </ShellContent>
+        
+    </FlyoutItem>
+    
+
     <ShellContent
-        Title="Home"
+        Title="Home2"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="MainPage" 
+        
+        
+        />
 
 
     <!--Flyout items for flyout page-->
