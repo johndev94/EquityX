@@ -4,7 +4,7 @@
              xmlns:model="clr-namespace:EquityX.Model"
              xmlns:pages="clr-namespace:EquityX.View"
              xmlns:viewmodel="clr-namespace:EquityX.ViewModel"
-             x:DataType="viewmodel:StockViewModel"
+
              Title="Home"
              x:Class="EquityX.MainPage">
     <ScrollView>
@@ -35,7 +35,7 @@
         <CollectionView
             BackgroundColor="Transparent"
             Grid.ColumnSpan="2"
-            ItemsSource="{Binding Stocks}"
+
             SelectionMode="None">
 
             

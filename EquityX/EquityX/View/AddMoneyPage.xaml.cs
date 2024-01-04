@@ -16,9 +16,18 @@ public partial class AddMoneyPage : ContentPage
     private async void OnbtnAddFunds_Clicked(object sender, EventArgs e)
     {
         string test = entry.Text;
+        double addedFunds = Convert.ToDouble(test);
 
-        double test1 = Convert.ToDouble(test);
-        Console.WriteLine("test" + test1);
+        // Send a message with the added funds
+        try
+        {
+            MessagingCenter.Send(this, "AddFunds", addedFunds);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error sending message: {ex.Message}");
+        }
+
         await Shell.Current.GoToAsync("home");
     }
 }

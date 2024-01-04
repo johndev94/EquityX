@@ -22,7 +22,7 @@ namespace EquityX
             // Register the StocksService as a singleton with the DI service
             builder.Services.AddSingleton<StockService>();
             // Register the ViewModel
-            builder.Services.AddSingleton<StockViewModel>();
+            //builder.Services.AddSingleton<StockViewModel>();
             // Register our main page
             builder.Services.AddSingleton<MainPage>();
 

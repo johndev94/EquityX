@@ -1,0 +1,22 @@
+﻿using SQLite;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EquityX.Services
+{
+
+    public class User
+    {
+        [PrimaryKey, AutoIncrement]
+        public int UserId { get; set; }
+        //public string Username { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public List<Stock> Stocks { get; set; } = new List<Stock>();
+        public List<Crypto> Cryptos { get; set; } = new List<Crypto>();
+    }
+}

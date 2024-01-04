@@ -6,7 +6,16 @@ namespace EquityX.View;
 
 public partial class HomePage : ContentPage
 {
-	double balance;
+    private double _balance;
+    public double Balance
+    {
+        get { return _balance; }
+        set
+        {
+            _balance = value;
+            OnPropertyChanged(nameof(Balance));
+        }
+    }
 
     ChartEntry[] entries = new[]
         {
@@ -38,7 +47,14 @@ public partial class HomePage : ContentPage
     public HomePage()
 	{
 		InitializeComponent();
-		btnAddMoney.Clicked += OnbtnAddMoney_Clicked;
+        this.BindingContext = this;
+
+        MessagingCenter.Subscribe<AddMoneyPage, double>(this, "AddFunds", (sender, arg) =>
+        {
+            Balance += arg; // Update the balance
+        });
+
+        btnAddMoney.Clicked += OnbtnAddMoney_Clicked;
 		btnWithdraw.Clicked += OnbtnWitdraw_Clicked;
 
 		Routing.RegisterRoute("add", typeof(AddMoneyPage));
