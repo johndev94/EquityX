@@ -42,7 +42,7 @@
 
 
             <CollectionView.ItemTemplate >
-                <DataTemplate x:DataType="model:Stocks">
+                <DataTemplate x:DataType="model:Stock">
                     <Grid Padding="10" Margin="0, 20, 0, 0">
                         <Frame CornerRadius="5"
                                HeightRequest="125"
@@ -75,7 +75,7 @@
                                        TextColor="White"
                                        VerticalTextAlignment="Center"/>
                                 <!--Data-->
-                                <Label Text="{Binding company}"
+                                <!--<Label Text="{Binding company}"
                                        Style="{StaticResource SmallLabel}"
                                        Grid.Row="0"
                                        Grid.Column="1"
@@ -96,7 +96,7 @@
                                        Grid.Column="1"
                                        Margin="10, 0, 0, 0"
                                        VerticalTextAlignment="Center"
-                                       TextColor="White"/>
+                                       TextColor="White"/>-->
 
                                 <Button x:Name="btnBuyStock" Text="Buy" BackgroundColor="Orange" Grid.Row="0" Grid.Column="2" WidthRequest="100" Margin="0,5,25,0"/>
                                 <Button x:Name="btnSellStock" Text="Sell" BackgroundColor="Purple" Grid.Row="1" Grid.Column="2" WidthRequest="100" Margin="0,5,25,0"/>

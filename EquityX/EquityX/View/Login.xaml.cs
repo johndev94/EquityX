@@ -1,5 +1,5 @@
 using EquityX.Services;
-using Windows.Networking.NetworkOperators;
+using Microsoft.Maui.ApplicationModel.Communication;
 
 namespace EquityX.View;
 
@@ -18,13 +18,13 @@ public partial class Login : ContentPage
         // Here, add your logic to verify the username and password
         // For example, check against a database or an authentication service
 
-        if (IsLoginValid(username, password))
+        if (await IsLoginValid(username, password))
         {
-            // Navigate to the next page or show a success message
+            await LoginUser(username, password);
         }
         else
         {
-            // Show an error message
+            Console.WriteLine("Login failed: Invalid username or password.");
         }
     }
 
@@ -36,25 +36,22 @@ public partial class Login : ContentPage
         if (isValidUser)
         {
             // Login successful
-            // Set user session data, navigate to the main page, etc.
-            // For example:
-            UserSession.CurrentUser = email; // Assume you have a UserSession class to handle logged-in user data
-                                             // Navigate to the main application page
-                                             // NavigationService.NavigateTo("MainPage"); // This will depend on your navigation service
-                                             // Display a welcome message
-                                             // DisplayAlert("Login Successful", "Welcome back!", "OK");
+            // Assuming you have a method to get the user's ID
+            var userId = await dataService.GetUserIdByEmail(email);
+            UserSession.SetCurrentUser(userId.ToString(), email);
+            var currentEmail = UserSession.CurrentUserEmail;
+            await Application.Current.MainPage.DisplayAlert("Login Successful", "Welcome back "+currentEmail+"! You are now logged in.", "OK");
+
         }
         else
         {
-            // Login failed
-            // Inform the user that login has failed
-            // DisplayAlert("Login Failed", "Incorrect email or password. Please try again.", "OK");
+            await Application.Current.MainPage.DisplayAlert("Login Successful", "Welcome back! You are now logged in.", "OK");
         }
     }
 
-    private bool IsLoginValid(string username, string password)
+    private async Task<bool> IsLoginValid(string username, string password)
     {
-        // Implement your validation logic here
-        return true; // Placeholder
+        DatabaseContext db = new DatabaseContext(); 
+        return await db.ValidateCredentialsAsync(username, password);
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using EquityX.Model;
 using EquityX.Services;
 using System.ComponentModel;
 using System;
@@ -12,7 +11,7 @@ namespace EquityX.ViewModel
     public class MainViewModel : INotifyPropertyChanged
     {
         private readonly DatabaseContext _dbService;
-        private StockService _stockService;
+
         private bool _isBusy;
         private string _statusMessage;
 
@@ -62,7 +61,7 @@ namespace EquityX.ViewModel
         public MainViewModel()
         {
             _dbService = new DatabaseContext();
-            _stockService = new StockService();
+
             Users = new ObservableCollection<User>();
             Stocks = new ObservableCollection<List<Result>>();
             Cryptos = new ObservableCollection<Crypto>();
@@ -159,7 +158,6 @@ namespace EquityX.ViewModel
             try
             {
                 Stocks.Clear();
-                Stocks.Add(await _stockService.GetStocks("META,MSFT,TSLA,AMZN,NFLX,NVDA,INTC"));
             }
             catch (Exception ex)
             {

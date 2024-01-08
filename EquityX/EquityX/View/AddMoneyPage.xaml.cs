@@ -21,7 +21,7 @@ public partial class AddMoneyPage : ContentPage
         // Send a message with the added funds
         try
         {
-            MessagingCenter.Send(this, "AddFunds", addedFunds);
+            await Application.Current.MainPage.DisplayAlert("Transaction Complete", addedFunds+"added!", "OK");
         }
         catch (Exception ex)
         {

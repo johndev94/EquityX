@@ -1,5 +1,6 @@
 ﻿using EquityX.ViewModel;
 
+
 namespace EquityX
 {
     public partial class MainPage : ContentPage 

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EquityX.Model;
 using SQLite;
 using Org.BouncyCastle.Crypto.Generators;
 
@@ -13,6 +12,12 @@ namespace EquityX.Services
     public class DatabaseContext
     {
         static SQLiteAsyncConnection db;
+
+        //public DatabaseContext()
+        //{
+        //    string databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "YourDatabase.db");
+        //    db = new SQLiteAsyncConnection(databasePath);
+        //}
         static async Task Init()
         {
             if (db != null)
@@ -23,7 +28,9 @@ namespace EquityX.Services
             try
             {
                 await db.CreateTableAsync<User>();
+                //seem to have issues here
                 await db.CreateTableAsync<Stock>();
+                
                 await db.CreateTableAsync<Crypto>();
             }
             catch (Exception ex)
@@ -35,13 +42,40 @@ namespace EquityX.Services
 
         public async Task<bool> ValidateCredentialsAsync(string email, string password)
         {
-            var user = await db.Table<User>().FirstOrDefaultAsync(u => u.Email == email);
-            if (user != null && user.Password == password)
+            await Init();
+            
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                return true; // Credentials match
+                // Either email or password is null or empty.
+                return false;
             }
-            return false; // User not found or password doesn't match
+
+            if (db == null)
+            {
+                // Database context is null.
+                throw new InvalidOperationException("Database context is not initialized.");
+            }
+
+            try
+            {
+                var normalizedEmail = email.ToLower();
+
+                var user = await db.Table<User>().FirstOrDefaultAsync(u => u.Email.ToLower() == normalizedEmail);
+                if (user != null && user.Password == password)
+                {
+                    return true; // Credentials match
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception appropriately.
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+
+            return false; // User not found, password doesn't match, or an exception occurred.
         }
+
+
 
         // Add user with User
         public static async Task AddUserAsync(User user)
@@ -68,6 +102,13 @@ namespace EquityX.Services
             await Init();
             return await db.Table<User>().ToListAsync();
         }
+
+        public async Task<int?> GetUserIdByEmail(string email)
+        {
+            var user = await db.Table<User>().Where(u => u.Email == email).FirstOrDefaultAsync();
+            return user?.UserId; // Return the UserId if the user is found, otherwise null
+        }
+
         // Remove a user by UserId
         public async Task RemoveUserAsync(int userId)
         {
