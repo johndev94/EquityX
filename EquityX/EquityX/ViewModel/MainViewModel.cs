@@ -11,7 +11,7 @@ namespace EquityX.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private readonly DBService _dbService;
+        private readonly DatabaseContext _dbService;
         private StockService _stockService;
         private bool _isBusy;
         private string _statusMessage;
@@ -61,7 +61,7 @@ namespace EquityX.ViewModel
 
         public MainViewModel()
         {
-            _dbService = new DBService();
+            _dbService = new DatabaseContext();
             _stockService = new StockService();
             Users = new ObservableCollection<User>();
             Stocks = new ObservableCollection<List<Result>>();
@@ -74,7 +74,7 @@ namespace EquityX.ViewModel
             LoadStocksCommand = new Command(async () => await LoadStocksAsync(), () => !IsBusy);
         }
 
-        private async Task AddUserAsync()
+        public async Task AddUserAsync()
         {
             if (IsBusy) return;
 
@@ -85,7 +85,7 @@ namespace EquityX.ViewModel
 
                 await _dbService.AddUserAsync(NewUserEmail, NewUserPassword);
                 StatusMessage = "User added successfully";
-                await LoadUsersAsync(); // Reload the user list
+                await LoadUsersAsync(); 
             }
             catch (Exception ex)
             {

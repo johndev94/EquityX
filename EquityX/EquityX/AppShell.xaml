@@ -152,8 +152,8 @@
     
 
     <FlyoutItem
-   Title="Help"
-   Icon="help.png">
+       Title="Help"
+       Icon="help.png">
 
         <ShellContent
        Title="Help"
@@ -163,7 +163,31 @@
         </ShellContent>
     </FlyoutItem>
 
-    
+    <FlyoutItem
+        Title="Register"
+        Icon="help.png">
+
+        <ShellContent
+            Title="Register"
+            Icon="help.png"
+            ContentTemplate="{DataTemplate pages:RegisterPage}">
+
+        </ShellContent>
+    </FlyoutItem>
+
+    <FlyoutItem
+    Title="Login"
+    Icon="help.png">
+
+        <ShellContent
+        Title="Login"
+        Icon="help.png"
+        ContentTemplate="{DataTemplate pages:Login}">
+
+        </ShellContent>
+    </FlyoutItem>
+
+
 
     <!--Displays a gradient when flyout is clicked-->
     <Shell.FlyoutBackdrop>

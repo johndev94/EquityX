@@ -16,7 +16,9 @@ namespace EquityX.Services
         //public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public List<Stock> Stocks { get; set; } = new List<Stock>();
-        public List<Crypto> Cryptos { get; set; } = new List<Crypto>();
+        public double? Balance { get; set; }
+        public double? Portfolio { get; set; }
+        //public List<Stock> Stocks { get; set; } = new List<Stock>();
+        //public List<Crypto> Cryptos { get; set; } = new List<Crypto>();
     }
 }

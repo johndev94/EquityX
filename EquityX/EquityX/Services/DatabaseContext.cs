@@ -10,7 +10,7 @@ using Org.BouncyCastle.Crypto.Generators;
 
 namespace EquityX.Services
 {
-    public class DBService
+    public class DatabaseContext
     {
         static SQLiteAsyncConnection db;
         static async Task Init()
@@ -20,10 +20,29 @@ namespace EquityX.Services
             var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MyData.db");
 
             db = new SQLiteAsyncConnection(databasePath);
-            await db.CreateTableAsync<User>();
-            await db.CreateTableAsync<Stock>();
-            await db.CreateTableAsync<Crypto>();
+            try
+            {
+                await db.CreateTableAsync<User>();
+                await db.CreateTableAsync<Stock>();
+                await db.CreateTableAsync<Crypto>();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details
+                Console.WriteLine(ex.Message);
+            }
         }
+
+        public async Task<bool> ValidateCredentialsAsync(string email, string password)
+        {
+            var user = await db.Table<User>().FirstOrDefaultAsync(u => u.Email == email);
+            if (user != null && user.Password == password)
+            {
+                return true; // Credentials match
+            }
+            return false; // User not found or password doesn't match
+        }
+
         // Add user with User
         public static async Task AddUserAsync(User user)
         {
@@ -38,7 +57,7 @@ namespace EquityX.Services
             var user = new User
             {
                 Email = email,
-                Password = HashPassword(password) // Assuming you have a method to hash the password
+                Password = HashPassword(password) 
             };
 
             await db.InsertAsync(user);

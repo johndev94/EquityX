@@ -9,6 +9,8 @@ namespace EquityX
     {
         public static MauiApp CreateMauiApp()
         {
+            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MyData.db");
+            Console.WriteLine(dbPath);
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
@@ -21,6 +23,8 @@ namespace EquityX
 
             // Register the StocksService as a singleton with the DI service
             builder.Services.AddSingleton<StockService>();
+            builder.Services.AddSingleton<DatabaseContext>();
+            builder.Services.AddSingleton<MainViewModel>();
             // Register the ViewModel
             //builder.Services.AddSingleton<StockViewModel>();
             // Register our main page
