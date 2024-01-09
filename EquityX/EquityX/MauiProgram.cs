@@ -30,9 +30,6 @@ namespace EquityX
 
             builder.Services.AddSingleton<DatabaseContext>();
             builder.Services.AddSingleton<MainViewModel>();
-            // Register the ViewModel
-            //builder.Services.AddSingleton<StockViewModel>();
-            // Register our main page
             builder.Services.AddSingleton<MainPage>();
 
 #if DEBUG

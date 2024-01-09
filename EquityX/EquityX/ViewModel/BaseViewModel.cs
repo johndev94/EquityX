@@ -47,8 +47,7 @@ public class BaseViewModel : INotifyPropertyChanged
     public bool IsNotBusy => !IsBusy;
 
 
-    // This is a delegate, a method that will handle the PropertyChanged event when raised when a property value changes
-    // This is the event that .net maui uses to update the view when the  data in the viewModel changes
+
     public event PropertyChangedEventHandler PropertyChanged;
 
 

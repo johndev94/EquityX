@@ -15,7 +15,7 @@ public partial class BuyStockPage : ContentPage
 	public BuyStockPage()
 	{
 		InitializeComponent();
-      //  MainViewModel _viewModel = new MainViewModel(); // Initialize your ViewModel here
+      //  MainViewModel _viewModel = new MainViewModel(); 
        
         BindingContext = new BuyStockViewModel();
         btnBuyStock.Clicked += btnBuyStock_Clicked;
@@ -26,6 +26,7 @@ public partial class BuyStockPage : ContentPage
         string longName = LongName.Text;
         double minusFunds = double.Parse(Price.Text) * -1;
         string shortName = ShortName.Text;
+        string symbol = Symbol.Text;
 
 
 
@@ -49,6 +50,17 @@ public partial class BuyStockPage : ContentPage
         if (success)
         {
             await Application.Current.MainPage.DisplayAlert("Transaction Complete", "" + minusFunds*-1 + " "+ longName+ " added!", "OK");
+            Stock stock = new Stock
+            {
+                Company = longName,
+                Name = shortName,
+                Symbol = symbol,
+                Price = (minusFunds * -1),
+                Quantity = 1,
+                UserId = userId
+            };
+            var databaseContext = new DatabaseContext();
+            await databaseContext.AddStockAsync(stock);
         }
         else
         {

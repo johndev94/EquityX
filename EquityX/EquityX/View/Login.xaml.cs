@@ -37,7 +37,6 @@ public partial class Login : ContentPage
         if (isValidUser)
         {
             // Login successful
-            // Assuming you have a method to get the user's ID
             var userId = await dataService.GetUserIdByEmail(email);
             UserSession.SetCurrentUser(userId.ToString(), email);
             var currentEmail = UserSession.CurrentUserEmail;

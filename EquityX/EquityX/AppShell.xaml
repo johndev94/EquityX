@@ -42,44 +42,12 @@
     item you can define one or more ShellContents. If you define more than one shell content items 
     they are automatically rendered as tabs at the bottom of the page. -->
     <!-- First flyout menu item - Account-->
-    <FlyoutItem       
-        Title="Account"
-        Icon="user.png">
+ 
 
-        <ShellContent
-           Title="Main Page"
-           Icon="home.png"
-           ContentTemplate="{DataTemplate pages:HomePage}">
-
-        </ShellContent>
-
-        <ShellContent
-            Title="Market"
-            Icon="graph.png"
-            ContentTemplate="{DataTemplate local:MainPage}">
-
-        </ShellContent>
-
-        <ShellContent
-            Title="Portfolio"
-            Icon="portfolio.png"
-            ContentTemplate="{DataTemplate pages:StatisticsPage}">
-
-        </ShellContent>
-
-        <ShellContent
-            Title="Hub"
-            Icon="application.png"
-            ContentTemplate="{DataTemplate pages:HubPage}">
-
-        </ShellContent>
-
-    </FlyoutItem>
-
-    <!-- Second flyout menu item - Home-->
+   
     
     <FlyoutItem
-        Title="Home - test"
+        Title="Home"
         Icon="home.png">
 
         <ShellContent
@@ -124,18 +92,7 @@
 
 
     <!--Flyout items for flyout page-->
-    <FlyoutItem
-       Title="Account"
-       Icon="user.png">
 
-        <ShellContent
-           Title="Account"
-           Icon="user.png"
-           ContentTemplate="{DataTemplate pages:AccountPage}">
-
-        </ShellContent>
-
-    </FlyoutItem>
 
     <FlyoutItem
        Title="Security"

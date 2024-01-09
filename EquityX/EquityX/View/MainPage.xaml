@@ -31,7 +31,6 @@
                                 <Grid ColumnDefinitions="130, 130, *"
                                       RowDefinitions="*,*,*"
                                       Padding="0">
-                                    <!-- Update these bindings based on your Model.Result properties -->
                                     <Label Text="{Binding shortName}"
                                            Grid.Row="0"
                                            Grid.Column="0"

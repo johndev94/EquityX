@@ -9,6 +9,8 @@ using static SQLite.SQLite3;
 using EquityX.View;
 using CommunityToolkit.Mvvm.Messaging;
 using EquityX.Messages;
+using Microsoft.EntityFrameworkCore;
+using Result = EquityX.Model.Result;
 
 
 namespace EquityX.ViewModel
@@ -26,6 +28,7 @@ namespace EquityX.ViewModel
 
         public ObservableCollection<User> Users { get; }
         public ObservableCollection<Model.Result> Stocks { get; set; }
+        public ObservableCollection<Stock> Stock1 { get; set; }
 
         private ObservableCollection<Model.Result> myVar;
 
@@ -81,11 +84,21 @@ namespace EquityX.ViewModel
                 OnPropertyChanged(nameof(StatusMessage));
             }
         }
-
+        private List<Stock> _stocksList;
+        public List<Stock> StocksList
+        {
+            get => _stocksList;
+            set
+            {
+                _stocksList = value;
+                OnPropertyChanged(nameof(StocksList));
+            }
+        }
         public MainViewModel()
         {
             Routing.RegisterRoute("buyStockPage", typeof(BuyStockPage));
             _dbService = new DatabaseContext();
+            LoadStocks();
 
             Users = new ObservableCollection<User>();
             Stocks = new ObservableCollection<Model.Result>();
@@ -100,6 +113,16 @@ namespace EquityX.ViewModel
             LoadStocksCommand = new Command(async () => await LoadStocksAsync(), () => !IsBusy);
             GetStocks();
         }
+
+        private async void LoadStocks()
+        {
+            var user = UserSession.CurrentUserId;
+            var dbContext = new DatabaseContext();
+            //Stock1 = await dbContext.GetAllStocksAsync();
+
+            
+        }
+
         private async Task ExecuteBuyCommand(Model.Result stock)
         {
             if (stock == null) return;
@@ -110,8 +133,7 @@ namespace EquityX.ViewModel
                 //stock = new Model.Result();
                 //stock.shortName = "test short name 2";
                 //stock.regularMarketPrice = 100; 
-               
-                // Use a unique field, such as 'symbol', as the query parameter
+
                 
                 await Shell.Current.GoToAsync("buyStockPage");
                 WeakReferenceMessenger.Default.Send(new DataToBuyStockPage(stock));
@@ -136,7 +158,25 @@ namespace EquityX.ViewModel
             }
         }
 
+        public async Task GetAllStocksAsync()
+        {
+            var dbContext = new DatabaseContext();
+            var stockList = await dbContext.GetAllStocksAsync();
+            var resultList = stockList.Select(stock => ConvertStockToResult(stock)).ToList();
+            Stocks = new ObservableCollection<Result>(resultList);
+        }
 
+        private Result ConvertStockToResult(Stock stock)
+        {
+            return new Result
+            { 
+                longName = stock.Company,
+                shortName = stock.Name,
+                symbol = stock.Symbol,
+                regularMarketPrice = stock.Price,
+
+            };
+        }
         public async Task AddUserAsync()
         {
             if (IsBusy) return;
@@ -233,6 +273,5 @@ namespace EquityX.ViewModel
             }
         }
 
-        // Additional methods for Stocks and Cryptos
     }
 }

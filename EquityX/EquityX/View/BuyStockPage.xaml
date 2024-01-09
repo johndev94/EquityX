@@ -11,7 +11,7 @@
     <ScrollView>
         <VerticalStackLayout Spacing="15" Padding="20" HorizontalOptions="Center">
 
-            <!-- Stylish Header for Stock Name -->
+
             <Label 
                    x:Name="LongName"
                    Text="{Binding Stock2.longName}"
@@ -20,21 +20,25 @@
                    HorizontalTextAlignment="Center"
                    TextColor="#1abc9c" />
 
-            <!-- Subheader for Stock Symbol -->
+
             <Label x:Name="ShortName"
                    Text="{Binding Stock2.shortName}"
                    FontSize="18"
                    HorizontalTextAlignment="Center"
                    TextColor="#34495e" />
 
-            <!-- Stock Price with Formatting -->
             <Label x:Name="Price"
                    Text="{Binding Stock2.regularMarketPrice}"
                    FontSize="16"
                    HorizontalTextAlignment="Center"
                    TextColor="#e74c3c" />
+            <Label x:Name="Symbol"
+                   Text="{Binding Stock2.symbol}"
+                   FontSize="16"
+                   HorizontalTextAlignment="Center"
+                   TextColor="#e74c3c" />
 
-            <!-- Buy Button with Modern Look -->
+
             <Button x:Name="btnBuyStock"
                     Text="Buy Stock"
                     BackgroundColor="#3498db"

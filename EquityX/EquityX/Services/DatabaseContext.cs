@@ -120,7 +120,7 @@ namespace EquityX.Services
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
 
-            return false; // User not found, password doesn't match, or an exception occurred.
+            return false; // User not found
         }
 
         //add funds
@@ -284,7 +284,11 @@ namespace EquityX.Services
             await Init();
             return await db.Table<Stock>().ToListAsync();
         }
-
+        public async Task<List<Stock>> GetAllStocksByUserIdAsync(int userId)
+        {
+            await Init();
+            return await db.Table<Stock>().Where(s => s.UserId == userId).ToListAsync();
+        }
 
 
         // Add crypto
