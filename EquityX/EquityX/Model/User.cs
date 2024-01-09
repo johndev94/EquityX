@@ -18,7 +18,7 @@ namespace EquityX.Model
         public string Password { get; set; }
         public double? Balance { get; set; }
         public double? Portfolio { get; set; }
-        //public List<Stock> Stocks { get; set; } = new List<Stock>();
+        public List<Stock> Stocks { get; set; } = new List<Stock>();
         //public List<Crypto> Cryptos { get; set; } = new List<Crypto>();
     }
 }

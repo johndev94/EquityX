@@ -11,7 +11,7 @@ namespace EquityX
         public MainPage()
         {
             InitializeComponent();
-            var testArray = resp.GetStock("COMET-USD"); // This should be an async call and await the result
+            var testArray = resp.GetStock("COMET-USD");
             resp.GetStock("COMET-USD");
             BindingContext = new MainViewModel();
             

@@ -6,17 +6,15 @@
              xmlns:service="clr-namespace:EquityX.Services"
              xmlns:viewmodel="clr-namespace:EquityX.ViewModel"
              x:Class="EquityX.View.BuyStockPage"
-             Title="{Binding Stock.longName}">
+             Title="test">
 
-    <ContentPage.BindingContext>
-        <viewmodel:MainViewModel />
-    </ContentPage.BindingContext>
 
     <ScrollView>
         <VerticalStackLayout Spacing="20" Padding="20">
             <!-- Stock Details -->
-            <Label Text="{Binding Stock.shortName}" />
-            <Label Text="{Binding Stock.regularMarketPrice, StringFormat='Price: {0:C}'}" />
+            <Label Text="test1" />
+            <Label Text="{Binding Stock2.shortName}" TextColor="Black" />
+            <Label Text="{Binding Stock2.regularMarketPrice, StringFormat='Price: {0:C}'}" TextColor="Black"/>
             <!-- Add more details as needed -->
 
         </VerticalStackLayout>

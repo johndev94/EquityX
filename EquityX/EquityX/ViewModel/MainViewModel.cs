@@ -7,6 +7,8 @@ using System;
 using EquityX.Model;
 using static SQLite.SQLite3;
 using EquityX.View;
+using CommunityToolkit.Mvvm.Messaging;
+using EquityX.Messages;
 
 
 namespace EquityX.ViewModel
@@ -97,15 +99,17 @@ namespace EquityX.ViewModel
 
             try
             {
-                await Shell.Current.GoToAsync("buyStockPage", true, new Dictionary<string, object>
-                {
-                    { "stock", stock }
-                });
+                //stock = new Model.Result();
+                //stock.shortName = "test short name 2";
+                //stock.regularMarketPrice = 100; 
+               
+                // Use a unique field, such as 'symbol', as the query parameter
+                
+                await Shell.Current.GoToAsync("buyStockPage");
+                WeakReferenceMessenger.Default.Send(new DataToBuyStockPage(stock));
             }
             catch (Exception ex)
             {
-                // Handle the exception here
-                // For example, you can log the exception or display an error message
                 Console.WriteLine($"Navigation error: {ex.Message}");
             }
 
