@@ -51,17 +51,17 @@
                                            TextColor="White"
                                            VerticalTextAlignment="Center"/>
 
-                                    <!-- You can add more Labels or other controls here to display additional stock information -->
+                                   
                                     <!-- Buy and Sell buttons -->
-                                    <Button Text="Buy" 
+                                        <Button Text="Buy" 
                                             BackgroundColor="Orange" 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=BuyCommand}"
-                                            CommandParameter="{Binding }"
+                                            CommandParameter="{Binding .}"
                                             Grid.Row="0" 
                                             Grid.Column="2" 
                                             WidthRequest="100" 
                                             Margin="0,5,25,0"/>
-                                    <Button Text="Sell" 
+                                        <Button Text="Sell" 
                                             BackgroundColor="Purple" 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=SellCommand}"
                                             CommandParameter="{Binding }"

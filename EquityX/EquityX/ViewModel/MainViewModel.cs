@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System;
 using EquityX.Model;
 using static SQLite.SQLite3;
+using EquityX.View;
 
 
 namespace EquityX.ViewModel
@@ -40,6 +41,17 @@ namespace EquityX.ViewModel
         protected virtual void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        private Model.Result _stock;
+        public Model.Result Stock
+        {
+            get => _stock;
+            set
+            {
+                _stock = value;
+                OnPropertyChanged(nameof(Stock));
+            }
+        }
+
         public bool IsBusy
         {
             get => _isBusy;
@@ -62,6 +74,7 @@ namespace EquityX.ViewModel
 
         public MainViewModel()
         {
+            Routing.RegisterRoute("buyStockPage", typeof(BuyStockPage));
             _dbService = new DatabaseContext();
 
             Users = new ObservableCollection<User>();
@@ -81,7 +94,22 @@ namespace EquityX.ViewModel
         {
             if (stock == null) return;
 
-            
+
+            try
+            {
+                await Shell.Current.GoToAsync("buyStockPage", true, new Dictionary<string, object>
+                {
+                    { "stock", stock }
+                });
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception here
+                // For example, you can log the exception or display an error message
+                Console.WriteLine($"Navigation error: {ex.Message}");
+            }
+
+
         }
         public async Task GetStocks()
         {
