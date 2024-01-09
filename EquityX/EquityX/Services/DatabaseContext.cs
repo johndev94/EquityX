@@ -6,6 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite;
 using Org.BouncyCastle.Crypto.Generators;
+using EquityX.Model;
+using EquityX.ViewModel;
+
+
 
 namespace EquityX.Services
 {
@@ -13,11 +17,7 @@ namespace EquityX.Services
     {
         static SQLiteAsyncConnection db;
 
-        //public DatabaseContext()
-        //{
-        //    string databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "YourDatabase.db");
-        //    db = new SQLiteAsyncConnection(databasePath);
-        //}
+        
         static async Task Init()
         {
             if (db != null)
@@ -39,7 +39,14 @@ namespace EquityX.Services
                 Console.WriteLine(ex.Message);
             }
         }
-
+        public async Task<List<Result>> GetStocks(string stocks)
+        {
+            await Init();
+            WebDataManager webDataManager = new WebDataManager();
+            List<Result> result = await webDataManager.GetStock(stocks);
+            return result;
+            
+        }
         public async Task<bool> ValidateCredentialsAsync(string email, string password)
         {
             await Init();
@@ -75,7 +82,43 @@ namespace EquityX.Services
             return false; // User not found, password doesn't match, or an exception occurred.
         }
 
+        //add funds
+        public async Task<bool> UpdateUserBalance(int userId, double addedFunds)
+        {
+            await Init();
+            try
+            {
+                var user = await db.Table<User>().FirstOrDefaultAsync(u => u.UserId == userId);
+                if (user != null)
+                {
+                    user.Balance += addedFunds;
+                    await db.UpdateAsync(user);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating user balance: {ex.Message}");
+                return false;
+            }
+        }
 
+        // Get balance with id
+        public async Task<double> GetBalanceByUserId(int userId)
+        {
+            await Init(); // Ensure the database is initialized
+
+            var user = await db.Table<User>().FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user != null)
+            {
+                return (double)user.Balance; // Return the user's balance
+            }
+            else
+            {
+                throw new InvalidOperationException("User not found.");
+            }
+        }
 
         // Add user with User
         public static async Task AddUserAsync(User user)
@@ -105,6 +148,7 @@ namespace EquityX.Services
 
         public async Task<int?> GetUserIdByEmail(string email)
         {
+            await Init();
             var user = await db.Table<User>().Where(u => u.Email == email).FirstOrDefaultAsync();
             return user?.UserId; // Return the UserId if the user is found, otherwise null
         }
@@ -125,6 +169,7 @@ namespace EquityX.Services
         // Hashes password
         private string HashPassword(string password)
         {
+
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
 

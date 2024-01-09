@@ -1,11 +1,13 @@
 using Microcharts;
 using SkiaSharp;
+using EquityX.Services;
 using System.Security.Cryptography.X509Certificates;
 
 namespace EquityX.View;
 
 public partial class HomePage : ContentPage
 {
+
     private double _balance;
     public double Balance
     {
@@ -44,15 +46,20 @@ public partial class HomePage : ContentPage
                 Color = SKColor.Parse("#2c5550")
             }
         };
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await InitializeBalance();
+    }
     public HomePage()
 	{
 		InitializeComponent();
+
+        var databaseContext = new DatabaseContext();
+        InitializeBalance();
         this.BindingContext = this;
 
-        MessagingCenter.Subscribe<AddMoneyPage, double>(this, "AddFunds", (sender, arg) =>
-        {
-            Balance += arg; // Update the balance
-        });
+        
 
         btnAddMoney.Clicked += OnbtnAddMoney_Clicked;
 		btnWithdraw.Clicked += OnbtnWitdraw_Clicked;
@@ -70,8 +77,22 @@ public partial class HomePage : ContentPage
         };
 
     }
+    private async Task InitializeBalance()
+    {
+      
+        
+        if (int.TryParse(UserSession.CurrentUserId, out int userId))
+        {
+            var databaseContext = new DatabaseContext();
+            Balance = await databaseContext.GetBalanceByUserId(userId);
+        }
+        else
+        {
+            Console.WriteLine("Could not get user");
+        }
+    }
 
-	private async void OnbtnAddMoney_Clicked(object sender, EventArgs e)
+    private async void OnbtnAddMoney_Clicked(object sender, EventArgs e)
 	{
 		await Shell.Current.GoToAsync("add");
 	}

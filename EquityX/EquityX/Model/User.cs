@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EquityX.Services
+namespace EquityX.Model
 {
 
     public class User

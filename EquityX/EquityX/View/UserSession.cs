@@ -23,5 +23,17 @@ namespace EquityX.View
             CurrentUserId = null;
             CurrentUserEmail = null;
         }
+        public static async Task SaveSessionAsync()
+        {
+            await SecureStorage.SetAsync("userId", CurrentUserId);
+            await SecureStorage.SetAsync("userEmail", CurrentUserEmail);
+        }
+
+        // Method to load session information
+        public static async Task LoadSessionAsync()
+        {
+            CurrentUserId = await SecureStorage.GetAsync("userId");
+            CurrentUserEmail = await SecureStorage.GetAsync("userEmail");
+        }
     }
 }

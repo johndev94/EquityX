@@ -6,8 +6,8 @@
     xmlns:pages="clr-namespace:EquityX.View"
     xmlns:local="clr-namespace:EquityX"
     Shell.FlyoutBehavior="Flyout">
-
     
+
     <!--Flyout headers-->
     <Shell.FlyoutHeader>
         <Grid RowDefinitions="*"
@@ -111,7 +111,7 @@
         </ShellContent>
         
     </FlyoutItem>
-    
+
 
     <ShellContent
         Title="Home2"

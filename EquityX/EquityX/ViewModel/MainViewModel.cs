@@ -4,7 +4,8 @@ using System.Windows.Input;
 using EquityX.Services;
 using System.ComponentModel;
 using System;
-using WebAPITest;
+using EquityX.Model;
+using static SQLite.SQLite3;
 
 namespace EquityX.ViewModel
 {
@@ -20,7 +21,7 @@ namespace EquityX.ViewModel
         public int NewStockQuantity { get; set; }
 
         public ObservableCollection<User> Users { get; }
-        public ObservableCollection<List<Result>> Stocks { get; }
+        public ObservableCollection<Model.Result> Stocks { get; set; }
         public ObservableCollection<Crypto> Cryptos { get; }
 
         // User input properties
@@ -63,7 +64,7 @@ namespace EquityX.ViewModel
             _dbService = new DatabaseContext();
 
             Users = new ObservableCollection<User>();
-            Stocks = new ObservableCollection<List<Result>>();
+            Stocks = new ObservableCollection<Model.Result>();
             Cryptos = new ObservableCollection<Crypto>();
 
             AddUserCommand = new Command(async () => await AddUserAsync(), () => !IsBusy);
@@ -71,7 +72,21 @@ namespace EquityX.ViewModel
 
             AddStockCommand = new Command(async () => await AddStockAsync(), () => !IsBusy);
             LoadStocksCommand = new Command(async () => await LoadStocksAsync(), () => !IsBusy);
+            GetStocks();
         }
+
+        public async Task GetStocks()
+        {
+            DatabaseContext databaseContext = new DatabaseContext();
+            Stocks.Clear();
+
+            var stockList = await databaseContext.GetStocks("ADA-USD,BTC-USD,BUSD-USD,CEL-USD,CNTR-USD,COMET-USD");
+            foreach (var stock in stockList)
+            {
+                Stocks.Add(stock); // Add each stock to the Stocks collection
+            }
+        }
+
 
         public async Task AddUserAsync()
         {

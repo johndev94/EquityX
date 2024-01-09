@@ -37,5 +37,17 @@
             Text="Register"
             Clicked="OnRegisterClicked" />
 
+        <Label 
+            x:Name="loginLink"
+            Text="Already have an account? Log in."
+            TextColor="Blue"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Margin="0,20,0,0">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnLoginLinkClicked" />
+            </Label.GestureRecognizers>
+        </Label>
+
     </VerticalStackLayout>
 </ContentPage>

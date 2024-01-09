@@ -5,6 +5,7 @@
              x:Class="EquityX.View.HomePage"
              xmlns:pages="clr-namespace:EquityX.View"
              Title="Home">
+    <ScrollView>
     <VerticalStackLayout BackgroundColor="White">
         <Grid>
             <Grid.RowDefinitions>
@@ -84,4 +85,5 @@
             <micro:ChartView x:Name="chartView1" Grid.Column="0" Grid.Row="0" HeightRequest="200" Grid.ColumnSpan="1" BackgroundColor="Transparent" Margin="0,0,0,0"/>
         </Grid>
     </VerticalStackLayout>
+        </ScrollView>
 </ContentPage>

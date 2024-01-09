@@ -8,6 +8,7 @@ public partial class Login : ContentPage
     public Login()
     {
         InitializeComponent();
+        Routing.RegisterRoute("register", typeof(RegisterPage));
     }
 
     private async void OnLoginClicked(object sender, EventArgs e)
@@ -15,8 +16,7 @@ public partial class Login : ContentPage
         var username = usernameEntry.Text;
         var password = passwordEntry.Text;
 
-        // Here, add your logic to verify the username and password
-        // For example, check against a database or an authentication service
+        // Check if login is valid
 
         if (await IsLoginValid(username, password))
         {
@@ -30,6 +30,7 @@ public partial class Login : ContentPage
 
     public async Task LoginUser(string email, string password)
     {
+        UserSession.ClearUserSession();
         var dataService = new DatabaseContext();
         bool isValidUser = await dataService.ValidateCredentialsAsync(email, password);
 
@@ -40,12 +41,15 @@ public partial class Login : ContentPage
             var userId = await dataService.GetUserIdByEmail(email);
             UserSession.SetCurrentUser(userId.ToString(), email);
             var currentEmail = UserSession.CurrentUserEmail;
+            UserSession.SetCurrentUser(userId.ToString(), currentEmail);
+            await UserSession.SaveSessionAsync();
             await Application.Current.MainPage.DisplayAlert("Login Successful", "Welcome back "+currentEmail+"! You are now logged in.", "OK");
+            await Shell.Current.GoToAsync("//MainPage");
 
         }
         else
         {
-            await Application.Current.MainPage.DisplayAlert("Login Successful", "Welcome back! You are now logged in.", "OK");
+            await Application.Current.MainPage.DisplayAlert("Login Unsuccessful", "Try again", "OK");
         }
     }
 
@@ -53,5 +57,10 @@ public partial class Login : ContentPage
     {
         DatabaseContext db = new DatabaseContext(); 
         return await db.ValidateCredentialsAsync(username, password);
+    }
+
+    private async void OnRegisterLinkClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("register");
     }
 }

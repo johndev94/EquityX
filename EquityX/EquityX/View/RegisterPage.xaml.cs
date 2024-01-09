@@ -1,5 +1,6 @@
 using EquityX.Services;
 using EquityX.ViewModel;
+using EquityX.Model;
 
 namespace EquityX.View;
 
@@ -10,6 +11,7 @@ public partial class RegisterPage : ContentPage
     {
         InitializeComponent();
         //BindingContext = viewModel;
+        Routing.RegisterRoute("login", typeof(Login));
     }
 
     private async void OnRegisterClicked(object sender, EventArgs e)
@@ -26,9 +28,8 @@ public partial class RegisterPage : ContentPage
                 // Assuming you have a method to register the user
                 await RegisterUser(email, password);
                 await DisplayAlert("Success", "Registration successful", "OK");
+                await Shell.Current.GoToAsync("login");
 
-                // Navigate to login or main page after successful registration
-                // Navigation logic here...
             }
             catch (Exception ex)
             {
@@ -91,10 +92,9 @@ public partial class RegisterPage : ContentPage
             
         };
         await DatabaseContext.AddUserAsync(newUser);
-
-        // Implement the logic to register the user
-        // This could involve sending data to a server, saving it in a database, etc.
-        // For example:
-        // await myAuthService.RegisterNewUser(email, password);
+    }
+    private async void OnLoginLinkClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("login");
     }
 }

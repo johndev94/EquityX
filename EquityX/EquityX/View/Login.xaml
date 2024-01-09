@@ -26,6 +26,17 @@
             x:Name="loginButton"
             Text="Login"
             Clicked="OnLoginClicked" />
+        <Label 
+            x:Name="registerLink"
+            Text="Register here"
+            TextColor="Blue"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Margin="0,20,0,0">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnRegisterLinkClicked" />
+            </Label.GestureRecognizers>
+        </Label>
 
     </VerticalStackLayout>
 </ContentPage>
