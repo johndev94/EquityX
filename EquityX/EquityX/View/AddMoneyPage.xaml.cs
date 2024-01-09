@@ -1,3 +1,5 @@
+using EquityX.Services;
+
 namespace EquityX.View;
 
 public partial class AddMoneyPage : ContentPage
@@ -16,18 +18,33 @@ public partial class AddMoneyPage : ContentPage
     private async void OnbtnAddFunds_Clicked(object sender, EventArgs e)
     {
         string test = entry.Text;
-        double addedFunds = Convert.ToDouble(test);
+        double addedFunds;
 
-        // Send a message with the added funds
-        try
+        if (!double.TryParse(test, out addedFunds))
         {
-            MessagingCenter.Send(this, "AddFunds", addedFunds);
+            await Application.Current.MainPage.DisplayAlert("Error", "Invalid amount entered.", "OK");
+            return;
         }
-        catch (Exception ex)
+
+        var user = UserSession.CurrentUserId;
+        var success = false;
+        if (int.TryParse(UserSession.CurrentUserId, out int userId))
         {
-            Console.WriteLine($"Error sending message: {ex.Message}");
+            var databaseContext = new DatabaseContext();
+            success = await databaseContext.UpdateUserBalance(userId, addedFunds);
+        }
+        
+
+        if (success)
+        {
+            await Application.Current.MainPage.DisplayAlert("Transaction Complete", "$" + addedFunds + " added!", "OK");
+        }
+        else
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Could not update balance.", "OK");
         }
 
         await Shell.Current.GoToAsync("home");
     }
+
 }

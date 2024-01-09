@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EquityX.View.Login"
+             Title="Login">
+
+    <VerticalStackLayout
+        Spacing="20"
+        Padding="30"
+        VerticalOptions="Center">
+
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            HorizontalOptions="Center" />
+
+        <Entry 
+            x:Name="usernameEntry"
+            Placeholder="Username" />
+
+        <Entry 
+            x:Name="passwordEntry"
+            Placeholder="Password"
+            IsPassword="True" />
+
+        <Button 
+            x:Name="loginButton"
+            Text="Login"
+            Clicked="OnLoginClicked" />
+        <Label 
+            x:Name="registerLink"
+            Text="Register here"
+            TextColor="Blue"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Margin="0,20,0,0">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnRegisterLinkClicked" />
+            </Label.GestureRecognizers>
+        </Label>
+
+    </VerticalStackLayout>
+</ContentPage>

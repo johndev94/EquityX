@@ -1,18 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using EquityX.Model;
 using EquityX.Services;
 using System.ComponentModel;
 using System;
-using WebAPITest;
+using EquityX.Model;
+using static SQLite.SQLite3;
 
 namespace EquityX.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private readonly DBService _dbService;
-        private StockService _stockService;
+        private readonly DatabaseContext _dbService;
+
         private bool _isBusy;
         private string _statusMessage;
 
@@ -21,7 +21,7 @@ namespace EquityX.ViewModel
         public int NewStockQuantity { get; set; }
 
         public ObservableCollection<User> Users { get; }
-        public ObservableCollection<List<Result>> Stocks { get; }
+        public ObservableCollection<Model.Result> Stocks { get; set; }
         public ObservableCollection<Crypto> Cryptos { get; }
 
         // User input properties
@@ -61,10 +61,10 @@ namespace EquityX.ViewModel
 
         public MainViewModel()
         {
-            _dbService = new DBService();
-            _stockService = new StockService();
+            _dbService = new DatabaseContext();
+
             Users = new ObservableCollection<User>();
-            Stocks = new ObservableCollection<List<Result>>();
+            Stocks = new ObservableCollection<Model.Result>();
             Cryptos = new ObservableCollection<Crypto>();
 
             AddUserCommand = new Command(async () => await AddUserAsync(), () => !IsBusy);
@@ -72,9 +72,23 @@ namespace EquityX.ViewModel
 
             AddStockCommand = new Command(async () => await AddStockAsync(), () => !IsBusy);
             LoadStocksCommand = new Command(async () => await LoadStocksAsync(), () => !IsBusy);
+            GetStocks();
         }
 
-        private async Task AddUserAsync()
+        public async Task GetStocks()
+        {
+            DatabaseContext databaseContext = new DatabaseContext();
+            Stocks.Clear();
+
+            var stockList = await databaseContext.GetStocks("ADA-USD,BTC-USD,BUSD-USD,CEL-USD,CNTR-USD,COMET-USD");
+            foreach (var stock in stockList)
+            {
+                Stocks.Add(stock); // Add each stock to the Stocks collection
+            }
+        }
+
+
+        public async Task AddUserAsync()
         {
             if (IsBusy) return;
 
@@ -85,7 +99,7 @@ namespace EquityX.ViewModel
 
                 await _dbService.AddUserAsync(NewUserEmail, NewUserPassword);
                 StatusMessage = "User added successfully";
-                await LoadUsersAsync(); // Reload the user list
+                await LoadUsersAsync(); 
             }
             catch (Exception ex)
             {
@@ -159,7 +173,6 @@ namespace EquityX.ViewModel
             try
             {
                 Stocks.Clear();
-                Stocks.Add(await _stockService.GetStocks("META,MSFT,TSLA,AMZN,NFLX,NVDA,INTC"));
             }
             catch (Exception ex)
             {

@@ -5,73 +5,85 @@
              x:Class="EquityX.View.HomePage"
              xmlns:pages="clr-namespace:EquityX.View"
              Title="Home">
+    <ScrollView>
+    <VerticalStackLayout BackgroundColor="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-    <ScrollView Orientation="Vertical">
-        <VerticalStackLayout BackgroundColor="White">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+            <BoxView CornerRadius="20,20,20,20" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="5,10,5,0">
+                <BoxView.Background CornerRadius="20,20,20,20">
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#421865"
+                                      Offset="0.1" />
+                        <GradientStop Color="#425865"
+                                      Offset="0.8" />
+                    </LinearGradientBrush>
+                </BoxView.Background>
+                <BoxView.Shadow>
+                    <Shadow Brush="Gray"
+                            Offset="10, 10"
+                            Opacity="0.3"/>
 
-        <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="5,10,5,0">
+                </BoxView.Shadow>
+            </BoxView>
+            <!--Balance-->
+            <Label Text="{Binding Balance, StringFormat='{0:C}'}" Grid.Row="0" Grid.Column="0" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 20, 0, 0" TextColor="White"/>
+            <Label Text="$200.48" Grid.Row="0" Grid.Column="1" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 20, 0, 0" TextColor="White"/>
 
-        </BoxView>
-        <!--Balance-->
-        <Label Text="{Binding Balance, StringFormat='{0:C}'}" Grid.Row="0" Grid.Column="0" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 20, 0, 0" TextColor="White"/>
-        <Label Text="$200.48" Grid.Row="0" Grid.Column="1" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 20, 0, 0" TextColor="White"/>
+            <Label Text="Balance" Grid.Row="1" Grid.Column="0" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 5, 0, 0" TextColor="White"/>
+            <Label Text="Portfollio" Grid.Row="1" Grid.Column="1" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 5, 0, 0" TextColor="White"/>
 
-        <Label Text="Balance" Grid.Row="1" Grid.Column="0" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 5, 0, 0" TextColor="White"/>
-        <Label Text="Portfollio" Grid.Row="1" Grid.Column="1" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 5, 0, 0" TextColor="White"/>
+            <ImageButton x:Name="btnAddMoney" Source="add.png" Grid.Row="2" Grid.Column="0" HeightRequest="50" Margin="0, 50, 0, 0" BackgroundColor="Transparent" BorderColor="Transparent" />
+            <ImageButton x:Name="btnWithdraw" Source="withdraw.png" Grid.Row="2" Grid.Column="1" HeightRequest="50" Margin="0, 50, 0, 0" BackgroundColor="Transparent" BorderColor="Transparent" />
 
-        <ImageButton x:Name="btnAddMoney" Source="add.png" Grid.Row="2" Grid.Column="0" HeightRequest="50" Margin="0, 50, 0, 0" BackgroundColor="Transparent" BorderColor="Transparent" />
-        <ImageButton x:Name="btnWithdraw" Source="withdraw.png" Grid.Row="2" Grid.Column="1" HeightRequest="50" Margin="0, 50, 0, 0" BackgroundColor="Transparent" BorderColor="Transparent" />
+            <Label Text="Add money" Grid.Row="3" Grid.Column="0" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
+            <Label Text="Withdraw" Grid.Row="3" Grid.Column="1" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
 
-        <Label Text="Add money" Grid.Row="3" Grid.Column="0" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
-        <Label Text="Withdraw" Grid.Row="3" Grid.Column="1" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
+        </Grid>
 
-    </Grid>
+        <!--Stocks-->
+        <Label Text="Top Stocks" HorizontalTextAlignment="Center" FontSize="30" Margin="0, 10, 0, 5"></Label>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
 
-    <!--Stocks-->
-    <Label Text="Top Stocks" HorizontalTextAlignment="Center" FontSize="30" Margin="0, 10, 0, 5"></Label>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        </Grid.ColumnDefinitions>
+            <!--<Label Text="1" Grid.Row="3" Grid.Column="0" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
+            <Label Text="2" Grid.Row="3" Grid.Column="1" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
+            <Label Text="3" Grid.Row="3" Grid.Column="2" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
+            <Label Text="4" Grid.Row="3" Grid.Column="3" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
+            <Label Text="5" Grid.Row="3" Grid.Column="4" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
+            <Label Text="6" Grid.Row="3" Grid.Column="5" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>-->
 
-        <!--<Label Text="1" Grid.Row="3" Grid.Column="0" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
-        <Label Text="2" Grid.Row="3" Grid.Column="1" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
-        <Label Text="3" Grid.Row="3" Grid.Column="2" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
-        <Label Text="4" Grid.Row="3" Grid.Column="3" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
-        <Label Text="5" Grid.Row="3" Grid.Column="4" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>
-        <Label Text="6" Grid.Row="3" Grid.Column="5" FontSize="20" HorizontalTextAlignment="Center" Margin="0, 20, 0, 10" TextColor="White"/>-->
+            <micro:ChartView x:Name="chartView" Grid.Column="0" Grid.Row="0" HeightRequest="200" Grid.ColumnSpan="1" BackgroundColor="Transparent" Margin="0,0,0,0"/>
 
-        <micro:ChartView x:Name="chartView" Grid.Column="0" Grid.Row="0" HeightRequest="200" Grid.ColumnSpan="1" BackgroundColor="Transparent" Margin="0,0,0,0"/>
+        </Grid>
 
-    </Grid>
+        <!--Crypto-->
+        <Label Text="Top Crypto" HorizontalTextAlignment="Center" FontSize="30" Margin="0, 10, 0, 5"></Label>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-    <!--Crypto-->
-    <Label Text="Top Crypto" HorizontalTextAlignment="Center" FontSize="30" Margin="0, 10, 0, 5"></Label>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <micro:ChartView x:Name="chartView1" Grid.Column="0" Grid.Row="0" HeightRequest="200" Grid.ColumnSpan="1" BackgroundColor="Transparent" Margin="0,0,0,0"/>
-    </Grid>
-</VerticalStackLayout>
-    </ScrollView>
+            <micro:ChartView x:Name="chartView1" Grid.Column="0" Grid.Row="0" HeightRequest="200" Grid.ColumnSpan="1" BackgroundColor="Transparent" Margin="0,0,0,0"/>
+        </Grid>
+    </VerticalStackLayout>
+        </ScrollView>
 </ContentPage>

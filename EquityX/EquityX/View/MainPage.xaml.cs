@@ -1,18 +1,19 @@
-﻿using EquityX.ViewModel;
+﻿using EquityX.Model;
+using EquityX.ViewModel;
+
+
 
 namespace EquityX
 {
     public partial class MainPage : ContentPage 
     {
-
+        WebDataManager resp = new WebDataManager();
         public MainPage()
         {
             InitializeComponent();
-
-            // Set the binding context to the ViewModel
-            //BindingContext = viewModel;
+            resp.GetCrypto();
+            BindingContext = new MainViewModel();
             
-
         }
 
     }

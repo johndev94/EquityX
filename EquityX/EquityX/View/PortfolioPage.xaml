@@ -4,6 +4,7 @@
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="EquityX.View.PortfolioPage"
              Title="PortfolioPage">
+    <VerticalStackLayout>
     <Grid
      RowDefinitions="*,*,*,*"
      ColumnDefinitions="*,*,*">
@@ -51,5 +52,6 @@
 
         </Grid>
         <micro:ChartView x:Name="chartView" HeightRequest="200"/>
-  
+        </VerticalStackLayout>
+
 </ContentPage>

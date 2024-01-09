@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite;
 
-namespace EquityX.Services
+namespace EquityX.Model
 {
 
     public class Crypto
@@ -20,6 +20,6 @@ namespace EquityX.Services
 
         // Foreign key
         public int UserId { get; set; }
-        public User User { get; set; }
+
     }
 }
