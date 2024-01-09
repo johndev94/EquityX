@@ -3,6 +3,8 @@ using EquityX.ViewModel;
 using Microcharts.Maui;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using EquityX.Model;
 
 namespace EquityX
 {
@@ -23,7 +25,9 @@ namespace EquityX
                 });
 
             // Register the StocksService as a singleton with the DI service
-            
+            builder.Services.AddDbContext<StockContext>(opt =>
+                                opt.UseInMemoryDatabase("StockList"));
+
             builder.Services.AddSingleton<DatabaseContext>();
             builder.Services.AddSingleton<MainViewModel>();
             // Register the ViewModel

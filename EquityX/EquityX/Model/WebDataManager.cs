@@ -18,47 +18,69 @@ namespace EquityX.Model
 
         public async Task<List<Result>> GetStock(string stocks)
         {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols="+stocks);
-            
-            request.Headers.Add("X-API-KEY", API_KEY);
-            var task = client.SendAsync(request);
-            var response = task.Result;
-            //var response = await client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            string responsebody = response.Content.ReadAsStringAsync().Result;
-            Console.WriteLine(responsebody);
+            if (string.IsNullOrEmpty(stocks))
+            {
+                throw new ArgumentException("Stocks parameter is null or empty", nameof(stocks));
+            }
 
-
-            Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responsebody);
-
-
-            return myDeserializedClass.quoteResponse.result;
-
-           
-        }
-
-        public async Task<List<Result>> GetCrypto()
-        {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=ADA-USD,BTC-USD,BUSD-USD,CEL-USD,CNTR-USD,COMET-USD");
+            var client = new HttpClient(); // Make this singleton instance instead?
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=" + stocks);
 
             request.Headers.Add("X-API-KEY", API_KEY);
-            var task = client.SendAsync(request);
-            var response = task.Result;
-            //var response = await client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            string responsebody = response.Content.ReadAsStringAsync().Result;
-            Console.WriteLine(responsebody);
+
+            try
+            {
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+                Console.WriteLine(responseBody);
+
+                try
+                {
+                    Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseBody);
+                    return myDeserializedClass?.quoteResponse?.result ?? new List<Result>();
 
 
-            Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responsebody);
-
-
-            return myDeserializedClass.quoteResponse.result;
-
-
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"JSON Parsing exception: {e.Message}");
+                    // Return an empty list or handle the exception as needed
+                    return new List<Result>();
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine($"Request exception: {e.Message}");
+                // Return an empty list or handle the exception as needed
+                return new List<Result>();
+            }
         }
+
+
+
+        //public async Task<List<Result>> GetCrypto()
+        //{
+        //    var client = new HttpClient();
+        //    var request = new HttpRequestMessage(HttpMethod.Get, "https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=ADA-USD,BTC-USD,BUSD-USD,CEL-USD,CNTR-USD,COMET-USD");
+
+        //    request.Headers.Add("X-API-KEY", API_KEY);
+        //    var task = client.SendAsync(request);
+        //    var response = task.Result;
+        //    //var response = await client.SendAsync(request);
+        //    response.EnsureSuccessStatusCode();
+        //    string responsebody = response.Content.ReadAsStringAsync().Result;
+        //    Console.WriteLine(responsebody);
+
+
+        //    Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responsebody);
+
+
+        //    return myDeserializedClass.quoteResponse.result;
+
+
+        //}
 
     }
 }

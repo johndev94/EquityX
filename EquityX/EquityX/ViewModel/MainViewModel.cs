@@ -7,6 +7,7 @@ using System;
 using EquityX.Model;
 using static SQLite.SQLite3;
 
+
 namespace EquityX.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
@@ -31,7 +32,7 @@ namespace EquityX.ViewModel
         // Commands
         public ICommand AddUserCommand { get; }
         public ICommand LoadUsersCommand { get; }
-
+        public ICommand BuyCommand { get; private set; }
         public ICommand AddStockCommand { get; }
         public ICommand LoadStocksCommand { get; }
         // INotifyPropertyChanged implementation
@@ -67,6 +68,8 @@ namespace EquityX.ViewModel
             Stocks = new ObservableCollection<Model.Result>();
             Cryptos = new ObservableCollection<Crypto>();
 
+            BuyCommand = new Command<Model.Result>(async (stock) => await ExecuteBuyCommand(stock));
+
             AddUserCommand = new Command(async () => await AddUserAsync(), () => !IsBusy);
             LoadUsersCommand = new Command(async () => await LoadUsersAsync(), () => !IsBusy);
 
@@ -74,7 +77,12 @@ namespace EquityX.ViewModel
             LoadStocksCommand = new Command(async () => await LoadStocksAsync(), () => !IsBusy);
             GetStocks();
         }
+        private async Task ExecuteBuyCommand(Model.Result stock)
+        {
+            if (stock == null) return;
 
+            
+        }
         public async Task GetStocks()
         {
             DatabaseContext databaseContext = new DatabaseContext();
@@ -83,6 +91,7 @@ namespace EquityX.ViewModel
             var stockList = await databaseContext.GetStocks("ADA-USD,BTC-USD,BUSD-USD,CEL-USD,CNTR-USD,COMET-USD");
             foreach (var stock in stockList)
             {
+                var test = stock;
                 Stocks.Add(stock); // Add each stock to the Stocks collection
             }
         }

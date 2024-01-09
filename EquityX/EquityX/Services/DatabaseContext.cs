@@ -43,9 +43,8 @@ namespace EquityX.Services
         {
             await Init();
             WebDataManager webDataManager = new WebDataManager();
-            List<Result> result = await webDataManager.GetStock(stocks);
-            return result;
-            
+            List<Result> resultList = await webDataManager.GetStock(stocks);
+            return resultList;
         }
         public async Task<bool> ValidateCredentialsAsync(string email, string password)
         {

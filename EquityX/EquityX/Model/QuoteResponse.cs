@@ -23,8 +23,8 @@ namespace EquityX.Model
         public string fullExchangeName { get; set; }
         public string longName { get; set; }
         public string financialCurrency { get; set; }
-        public int averageDailyVolume3Month { get; set; }
-        public int averageDailyVolume10Day { get; set; }
+        public long averageDailyVolume3Month { get; set; }
+        public long averageDailyVolume10Day { get; set; }
         public double fiftyTwoWeekLowChange { get; set; }
         public double fiftyTwoWeekLowChangePercent { get; set; }
         public string fiftyTwoWeekRange { get; set; }
@@ -84,7 +84,7 @@ namespace EquityX.Model
         public double regularMarketOpen { get; set; }
         public double regularMarketDayHigh { get; set; }
         public double regularMarketDayLow { get; set; }
-        public int regularMarketVolume { get; set; }
+        public long regularMarketVolume { get; set; }
         public string? symbol { get; set; }
     }
 

@@ -5,22 +5,23 @@
              xmlns:pages="clr-namespace:EquityX.View"
              xmlns:service="clr-namespace:EquityX.Services"
              xmlns:viewmodel="clr-namespace:EquityX.ViewModel"
-
              Title="Home"
              x:Class="EquityX.MainPage">
+    <ContentPage.BindingContext>
+        <viewmodel:MainViewModel />
+    </ContentPage.BindingContext>
+
     <ScrollView>
         <Grid ColumnDefinitions="*,*"
               ColumnSpacing="5"
               RowDefinitions="*,Auto"
               RowSpacing="0"
               Margin="0, 30, 0, 0 ">
-
-
             <CollectionView ItemsSource="{Binding Stocks}" 
                             Grid.ColumnSpan="2"
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Stock">
+                    <DataTemplate x:DataType="model:Result">
                         <Grid Padding="10" Margin="0, 20, 0, 0">
                             <Frame CornerRadius="5"
                                    HeightRequest="125"
@@ -30,22 +31,27 @@
                                 <Grid ColumnDefinitions="130, 130, *"
                                       RowDefinitions="*,*,*"
                                       Padding="0">
-                                    <Label Text="{Binding Company}"
+                                    <!-- Update these bindings based on your Model.Result properties -->
+                                    <Label Text="{Binding shortName}"
                                            Grid.Row="0"
                                            Grid.Column="0"
+                                           Padding="10,0,0,0" 
                                            TextColor="White"
                                            VerticalTextAlignment="Center"/>
-                                    <Label Text="{Binding Price, StringFormat='{0:C}'}"
+                                    <Label  Text="{Binding bid, StringFormat='Buy Price: {0}'}"
                                            Grid.Row="1"
                                            Grid.Column="0"
+                                           Padding="10,0,0,0" 
                                            TextColor="White"
                                            VerticalTextAlignment="Center"/>
-                                    <Label Text="{Binding Symbol}"
+                                    <Label Text="{Binding ask, StringFormat='Sell Price: {0}'}"
                                            Grid.Row="2"
                                            Grid.Column="0"
+                                           Padding="10,0,0,0" 
                                            TextColor="White"
                                            VerticalTextAlignment="Center"/>
 
+                                    <!-- You can add more Labels or other controls here to display additional stock information -->
                                     <!-- Buy and Sell buttons -->
                                     <Button Text="Buy" 
                                             BackgroundColor="Orange" 
