@@ -15,10 +15,10 @@ namespace EquityX.Services
 {
     public class DatabaseContext
     {
-        static SQLiteAsyncConnection db;
+        public static SQLiteAsyncConnection db;
 
         
-        static async Task Init()
+        public static async Task Init()
         {
             if (db != null)
                 return;
@@ -27,11 +27,11 @@ namespace EquityX.Services
             db = new SQLiteAsyncConnection(databasePath);
             try
             {
+                await db.CreateTableAsync<Stock>();
                 await db.CreateTableAsync<User>();
                 //seem to have issues here
-                await db.CreateTableAsync<Stock>();
                 
-                await db.CreateTableAsync<Crypto>();
+                
             }
             catch (Exception ex)
             {
@@ -145,6 +145,27 @@ namespace EquityX.Services
             }
         }
 
+        public async Task<bool> UpdatePortfollio(int userId, double addedFunds)
+        {
+            await Init();
+            try
+            {
+                var user = await db.Table<User>().FirstOrDefaultAsync(u => u.UserId == userId);
+                if (user != null)
+                {
+                    user.Portfolio += addedFunds;
+                    await db.UpdateAsync(user);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating user balance: {ex.Message}");
+                return false;
+            }
+        }
+
         // Get balance with id
         public async Task<double> GetBalanceByUserId(int userId)
         {
@@ -154,6 +175,22 @@ namespace EquityX.Services
             if (user != null)
             {
                 return (double)user.Balance; // Return the user's balance
+            }
+            else
+            {
+                throw new InvalidOperationException("User not found.");
+            }
+        }
+
+        // Get portfollio with id
+        public async Task<double> GetPortfollioByUserId(int userId)
+        {
+            await Init(); // Ensure the database is initialized
+
+            var user = await db.Table<User>().FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user != null)
+            {
+                return (double)user.Portfolio; // Return the user's balance
             }
             else
             {

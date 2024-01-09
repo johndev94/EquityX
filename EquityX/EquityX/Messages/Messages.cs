@@ -11,4 +11,5 @@ namespace EquityX.Messages
     {
         public DataToBuyStockPage(Model.Result value) : base(value) { }
     }
+ 
 }

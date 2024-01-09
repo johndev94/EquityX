@@ -22,6 +22,7 @@ namespace EquityX.ViewModel
                 OnPropertyChanged(nameof(Stock2));
             }
         }
+
       public BuyStockViewModel()
         {
             Stock2 = new Model.Result();

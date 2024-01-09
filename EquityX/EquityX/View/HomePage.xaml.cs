@@ -19,6 +19,17 @@ public partial class HomePage : ContentPage
         }
     }
 
+    private double _portfollio;
+    public double Portfollio
+    {
+        get { return _portfollio; }
+        set
+        {
+            _portfollio = Math.Round(value, 2);
+            OnPropertyChanged(nameof(Portfollio));
+        }
+    }
+
     ChartEntry[] entries = new[]
         {
             new ChartEntry(212)
@@ -50,6 +61,7 @@ public partial class HomePage : ContentPage
     {
         base.OnAppearing();
         await InitializeBalance();
+        await InitializePortfollio();
     }
     public HomePage()
 	{
@@ -57,6 +69,7 @@ public partial class HomePage : ContentPage
 
         var databaseContext = new DatabaseContext();
         InitializeBalance();
+        InitializePortfollio();
         this.BindingContext = this;
 
         
@@ -85,6 +98,20 @@ public partial class HomePage : ContentPage
         {
             var databaseContext = new DatabaseContext();
             Balance = await databaseContext.GetBalanceByUserId(userId);
+        }
+        else
+        {
+            Console.WriteLine("Could not get user");
+        }
+    }
+    private async Task InitializePortfollio()
+    {
+
+
+        if (int.TryParse(UserSession.CurrentUserId, out int userId))
+        {
+            var databaseContext = new DatabaseContext();
+            Portfollio = await databaseContext.GetPortfollioByUserId(userId);
         }
         else
         {

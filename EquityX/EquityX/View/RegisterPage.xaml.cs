@@ -11,7 +11,9 @@ public partial class RegisterPage : ContentPage
     {
         InitializeComponent();
         //BindingContext = viewModel;
+        DatabaseContext.Init();
         Routing.RegisterRoute("login", typeof(Login));
+        
     }
 
     private async void OnRegisterClicked(object sender, EventArgs e)

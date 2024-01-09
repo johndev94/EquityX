@@ -114,7 +114,8 @@
 
 
     <ShellContent
-        Title="Home2"
+        Title="Stocks"
+        Icon="stocks.png"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" 
         

@@ -59,6 +59,7 @@
 	  <None Remove="Resources\Images\menu.png" />
 	  <None Remove="Resources\Images\security.png" />
 	  <None Remove="Resources\Images\settings.png" />
+	  <None Remove="Resources\Images\stocks.png" />
 	  <None Remove="Resources\Images\user.png" />
 	  <None Remove="Resources\Images\withdraw.png" />
 	</ItemGroup>

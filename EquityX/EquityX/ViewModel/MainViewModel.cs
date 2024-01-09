@@ -26,7 +26,15 @@ namespace EquityX.ViewModel
 
         public ObservableCollection<User> Users { get; }
         public ObservableCollection<Model.Result> Stocks { get; set; }
-        public ObservableCollection<Crypto> Cryptos { get; }
+
+        private ObservableCollection<Model.Result> myVar;
+
+        public ObservableCollection<Model.Result> MyProperty
+        {
+            get { return myVar; }
+            set { myVar = value; }
+        }
+
 
         // User input properties
         public string NewUserEmail { get; set; }
@@ -81,7 +89,7 @@ namespace EquityX.ViewModel
 
             Users = new ObservableCollection<User>();
             Stocks = new ObservableCollection<Model.Result>();
-            Cryptos = new ObservableCollection<Crypto>();
+
 
             BuyCommand = new Command<Model.Result>(async (stock) => await ExecuteBuyCommand(stock));
 

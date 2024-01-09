@@ -37,7 +37,7 @@
             </BoxView>
             <!--Balance-->
             <Label Text="{Binding Balance, StringFormat='{0:C}'}" Grid.Row="0" Grid.Column="0" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 20, 0, 0" TextColor="White"/>
-            <Label Text="$200.48" Grid.Row="0" Grid.Column="1" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 20, 0, 0" TextColor="White"/>
+            <Label Text="{Binding Portfollio, StringFormat='{0:C}'}" Grid.Row="0" Grid.Column="1" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 20, 0, 0" TextColor="White"/>
 
             <Label Text="Balance" Grid.Row="1" Grid.Column="0" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 5, 0, 0" TextColor="White"/>
             <Label Text="Portfollio" Grid.Row="1" Grid.Column="1" FontSize="30" HorizontalTextAlignment="Center" Margin="0, 5, 0, 0" TextColor="White"/>

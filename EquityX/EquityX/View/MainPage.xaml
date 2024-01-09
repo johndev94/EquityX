@@ -53,7 +53,9 @@
 
                                    
                                     <!-- Buy and Sell buttons -->
-                                        <Button Text="Buy" 
+                                        <Button 
+                                            
+                                            Text="Buy" 
                                             BackgroundColor="Orange" 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=BuyCommand}"
                                             CommandParameter="{Binding .}"

@@ -20,6 +20,7 @@ namespace EquityX.Model
 
         // Foreign key
         public int UserId { get; set; }
+        
 
     }
 }
